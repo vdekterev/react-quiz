@@ -1,9 +1,11 @@
+import DateCounter from "./components/DateCounter";
+
 function App() {
-  return (
-    <div className="App">
-      <h1>App</h1>
-    </div>
-  );
+    return (
+     <div>
+         <DateCounter/>
+     </div>
+    );
 }
 
 export default App;
