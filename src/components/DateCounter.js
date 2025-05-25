@@ -1,40 +1,47 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
+
+const initialState = { count: 0, step: 1 };
 
 function reducer(state, action) {
-    console.log(state, action);
+    switch (action.type) {
+        case "INCREMENT":
+            return { ...state, count: state.count + state.step };
+        case "DECREMENT":
+            return { ...state, count: state.count - state.step }
+        case "setCount":
+            return { ...state, count: action.payload }
+        case "setStep":
+            return { ...state, step: action.payload }
+        case "RESET":
+            return initialState;
+        default:
+            console.error("Unknown action: ", action);
+            return state;
+    }
 }
 
 function DateCounter() {
-    // const [count, setCount] = useState(0);
-    const [step, setStep] = useState(1);
-    const [count, dispatch] = useReducer(reducer, 0);
+    const [state, dispatch] = useReducer(reducer, initialState, undefined);
+    const { count, step } = state;
 
     // This mutates the date object.
     const date = new Date("june 21 2027");
     date.setDate(date.getDate() + count);
 
-    const dec = function () {
-        // setCount((count) => count - 1);
-        // setCount(count => count - step);
+    const dec = () => dispatch({type: 'DECREMENT'});
+
+    const inc = () => dispatch({type: 'INCREMENT'});
+
+    const defineCount = e => {
+        dispatch({type: "setCount", payload: Number(e.target.value)})
     };
 
-    const inc = function () {
-        dispatch(1);
-        // setCount((count) => count + 1);
-        // setCount(count => count + step);
+    const defineStep = e => {
+        dispatch({type: "setStep", payload: Number(e.target.value)})
     };
 
-    const defineCount = function (e) {
-        // setCount(Number(e.target.value));
-    };
-
-    const defineStep = function (e) {
-        setStep(Number(e.target.value));
-    };
-
-    const reset = function () {
-        // setCount(0);
-        setStep(1);
+    const reset = () => {
+        dispatch({ type: "RESET" })
     };
 
     return (
