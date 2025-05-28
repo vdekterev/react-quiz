@@ -8,6 +8,7 @@
 
   --color-theme: #1098ad;
   --color-accent: #ffa94d;
+  --color-wrong: crimson;
 }
 
 * {
@@ -46,6 +47,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.app-header > img {
+  animation: App-logo-spin 20s linear infinite;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .error {
@@ -113,6 +126,7 @@ progress {
 ::-webkit-progress-value {
   background-color: var(--color-theme);
   border-radius: 100px;
+  transition: width .5s ease-in-out;
 }
 
 .btn {
@@ -165,6 +179,12 @@ progress {
   background-color: var(--color-accent);
   border: 2px solid var(--color-accent);
   color: var(--color-darkest);
+}
+
+.btn-option.wrong.answer {
+  color: var(--color-light);
+  border: 2px solid transparent;
+  background-color: var(--color-wrong);
 }
 
 .answer {
